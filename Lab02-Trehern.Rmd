@@ -1,0 +1,89 @@
+---
+title: "Lab 02"
+author: "Robert M. Trehern"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    theme: cerulean
+    highlight: haddock
+---
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r, include=FALSE}
+library(dplyr)
+library(here)
+library(tidyverse)
+library(rmarkdown)
+```
+
+```{r}
+# load and call data
+
+# store data dictionary file path
+DD_FILEPATH <- here::here("data/rodeo/ltdb_data_dictionary.csv")
+
+# import data dictionary
+dd <- read.csv(DD_FILEPATH, stringsAsFactors=F)
+```
+
+<br>
+
+```{r}
+# load function source files
+source(here("analysis/utilities.R"))
+```
+
+<br>
+<br>
+
+**The following are examples designed to demonstrate how the variable filters work.  The function 'paged_table()', from the library 'rmarkdown', was used solely for display purposes and is not required for the filters to function properly.** 
+
+<br>
+<br>
+
+### Variable Filter One (Themes)
+
+```{r}
+# theme search function example 1:
+paged_table(theme_search(dd, "marital"))
+```
+
+```{r}
+# theme search function example 2:
+paged_table(theme_search(dd, "immigration"))
+```
+
+<br>
+<br>
+<br>
+
+### Variable Filter Two (Keywords)
+
+```{r}
+# keyword search function example 1:
+paged_table(keyword_search(dd, "income"))
+```
+
+```{r}
+# keyword search function example 2:
+paged_table(keyword_search(dd, "separated"))
+```
+
+<br>
+<br>
+<br>
+
+### Variable Filter Three (Time Periods)
+
+```{r}
+# time period search function example 1:
+# eligible time periods are 1970, 1980, 1990, 2000, and 2010
+
+paged_table(time_search(time.df, "1980"))
+```
+
+
